@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HiloConecta — Insumos textiles en México</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Barra superior -->
+  <div class="top-bar">
+    <div class="container top-bar__inner">
+      <div class="top-bar__left">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Envíos a todo México</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Compra segura</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Soporte especializado</span>
+      </div>
+      <div class="top-bar__right">
+        <a href="#proveedores">Vende en HiloConecta</a>
+        <a href="#contacto">Ayuda</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <span class="logo__icon">
+          <svg viewBox="0 0 40 48" fill="none"><path d="M20 4C12 4 8 12 8 20v8c0 8 4 16 12 16s12-8 12-16v-8c0-8-4-12-12-12z" fill="#6332C7"/><path d="M14 20h12v2H14v-2zm0 6h12v2H14v-2z" fill="#fff"/></svg>
+        </span>
+        <span class="logo__text">
+          <strong>HiloConecta</strong>
+          <small>Conectamos tu producción</small>
+        </span>
+      </a>
+      <nav class="nav" id="mainNav">
+        <a href="#" class="nav__link nav__link--active">Inicio</a>
+        <a href="#proveedores" class="nav__link">Proveedores</a>
+        <div class="nav__dropdown">
+          <a href="#productos" class="nav__link">Productos <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" fill="none"/></svg></a>
+          <div class="nav__dropdown-menu">
+            <a href="#categorias">Hilos</a>
+            <a href="#categorias">Agujas</a>
+            <a href="#categorias">Herramientas</a>
+            <a href="#categorias">Aceites y lubricantes</a>
+          </div>
+        </div>
+        <a href="#cotizacion" class="nav__link">Solicitar cotización</a>
+        <a href="#nosotros" class="nav__link">Nosotros</a>
+        <a href="#blog" class="nav__link">Blog</a>
+        <a href="#contacto" class="nav__link">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button type="button" class="btn btn--ghost btn--cart" id="btnCart" aria-label="Carrito">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          Carrito <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <button type="button" class="btn btn--outline" id="btnLogin">Iniciar sesión</button>
+        <button type="button" class="btn btn--primary" id="btnRegister">Registrarse</button>
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <h1>Conectamos empresas con los mejores proveedores de insumos textiles</h1>
+          <p class="hero__subtitle">Encuentra hilos, carretes, agujas y todo lo que necesitas para tu producción al mejor precio.</p>
+          <form class="search-bar" id="searchForm">
+            <select id="searchCategory" aria-label="Categoría">
+              <option value="">Todas las categorías</option>
+            </select>
+            <input type="search" id="searchInput" placeholder="¿Qué producto buscas?" autocomplete="off">
+            <button type="submit" class="btn btn--primary">Buscar</button>
+          </form>
+          <div class="hero__badges">
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Proveedores verificados</span>
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Precios competitivos</span>
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Cotizaciones rápidas</span>
+            <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Envíos a todo México</span>
+          </div>
+        </div>
+        <div class="hero__visual">
+          <img src="https://images.unsplash.com/photo-1584917865442-89a455addebc?w=600&h=450&fit=crop" alt="Insumos textiles: hilos, agujas y herramientas" class="hero__img">
+          <div class="hero__supplier-card">
+            <h3>¿Eres proveedor?</h3>
+            <p>Únete a nuestra plataforma y llega a miles de empresas compradoras en todo México.</p>
+            <button type="button" class="btn btn--primary btn--sm" id="btnSupplier">Quiero vender</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resultados búsqueda -->
+    <section class="search-results container" id="searchResults" hidden>
+      <h2>Resultados de búsqueda</h2>
+      <div class="products-grid" id="searchResultsGrid"></div>
+    </section>
+
+    <!-- Categorías -->
+    <section class="section categories" id="categorias">
+      <div class="container">
+        <h2 class="section__title">Explora nuestras categorías <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></h2>
+        <div class="categories-grid" id="categoriesGrid"></div>
+      </div>
+    </section>
+
+    <!-- Mapa de disponibilidad -->
+    <section class="section map-section" id="mapa">
+      <div class="container">
+        <h2 class="section__title">Disponibilidad en tiempo real <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></h2>
+        <p class="section__subtitle">Consulta en el mapa qué productos hay cerca de ti, con precio y existencias actualizadas.</p>
+        <div class="map-layout">
+          <div class="map-filters">
+            <label>
+              Filtrar por producto
+              <select id="mapProductFilter">
+                <option value="">Todos los productos</option>
+              </select>
+            </label>
+            <label>
+              Categoría
+              <select id="mapCategoryFilter">
+                <option value="">Todas</option>
+              </select>
+            </label>
+            <div class="map-legend">
+              <span class="legend-dot legend-dot--high"></span> Alta disponibilidad
+              <span class="legend-dot legend-dot--med"></span> Media
+              <span class="legend-dot legend-dot--low"></span> Baja
+            </div>
+          </div>
+          <div id="stockMap" class="stock-map"></div>
+          <div class="map-sidebar" id="mapSidebar">
+            <p class="map-sidebar__hint">Haz clic en un marcador para ver productos, precios y cantidades.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Productos destacados -->
+    <section class="section products-section" id="productos">
+      <div class="container">
+        <h2 class="section__title">Productos más buscados <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></h2>
+        <div class="products-layout">
+          <div class="products-grid" id="featuredProducts"></div>
+          <aside class="why-buy">
+            <h3>¿Por qué comprar en HiloConecta?</h3>
+            <ul>
+              <li>
+                <span class="why-buy__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+                <div><strong>Gran variedad de productos</strong><span>Miles de SKUs de hilos, agujas, aceites y más.</span></div>
+              </li>
+              <li>
+                <span class="why-buy__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
+                <div><strong>Proveedores confiables</strong><span>Todos verificados y con calificaciones reales.</span></div>
+              </li>
+              <li>
+                <span class="why-buy__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                <div><strong>Cotizaciones rápidas</strong><span>Respuesta en menos de 24 horas hábiles.</span></div>
+              </li>
+              <li>
+                <span class="why-buy__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+                <div><strong>Atención personalizada</strong><span>Asesores textiles especializados.</span></div>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catálogo completo por categoría -->
+    <section class="section catalog-section" id="catalogo">
+      <div class="container">
+        <h2 class="section__title">Catálogo completo</h2>
+        <div class="catalog-filters">
+          <button type="button" class="filter-chip filter-chip--active" data-category="">Todos</button>
+        </div>
+        <div class="products-grid products-grid--catalog" id="catalogGrid"></div>
+      </div>
+    </section>
+
+    <!-- Value props -->
+    <section class="section value-props">
+      <div class="container value-props__grid">
+        <article class="value-card">
+          <span class="value-card__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
+          <h3>Miles de proveedores</h3>
+          <p>Conecta con fabricantes y distribuidores verificados en todo el país.</p>
+        </article>
+        <article class="value-card">
+          <span class="value-card__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+          <h3>Mejores precios</h3>
+          <p>Compara ofertas y elige la mejor opción para tu producción.</p>
+        </article>
+        <article class="value-card">
+          <span class="value-card__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+          <h3>Envíos a todo México</h3>
+          <p>Entrega segura y rastreable a los 32 estados.</p>
+        </article>
+        <article class="value-card">
+          <span class="value-card__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6332C7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <h3>Compra segura</h3>
+          <p>Protección de datos y transacciones garantizada.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Stats bar -->
+  <footer class="stats-bar">
+    <div class="container stats-bar__grid">
+      <div><strong>+3,000</strong><span>Proveedores verificados</span></div>
+      <div><strong>+25,000</strong><span>Productos disponibles</span></div>
+      <div><strong>+8,000</strong><span>Empresas compradoras</span></div>
+      <div><strong>32</strong><span>Estados de la República</span></div>
+      <div><strong>+98%</strong><span>Clientes satisfechos</span></div>
+    </div>
+  </footer>
+
+  <footer class="site-footer" id="contacto">
+    <div class="container site-footer__grid">
+      <div>
+        <a href="#" class="logo logo--footer">
+          <span class="logo__icon"><svg viewBox="0 0 40 48" fill="none"><path d="M20 4C12 4 8 12 8 20v8c0 8 4 16 12 16s12-8 12-16v-8c0-8-4-12-12-12z" fill="#6332C7"/></svg></span>
+          <span class="logo__text"><strong>HiloConecta</strong></div>
+        </a>
+        <p>Marketplace B2B de insumos textiles en México.</p>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p>contacto@hiloconecta.mx</p>
+        <p>+52 55 1234 5678</p>
+      </div>
+      <div id="nosotros">
+        <h4>Empresa</h4>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#proveedores">Proveedores</a>
+        <a href="#blog">Blog</a>
+      </div>
+    </div>
+    <p class="site-footer__copy">&copy; 2026 HiloConecta. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Modal Carrito -->
+  <dialog class="modal" id="cartModal">
+    <div class="modal__header">
+      <h2>Tu carrito</h2>
+      <button type="button" class="modal__close" data-close>&times;</button>
+    </div>
+    <div class="modal__body" id="cartItems"></div>
+    <div class="modal__footer">
+      <p class="cart-total">Total: <strong id="cartTotal">$0.00 MXN</strong></p>
+      <button type="button" class="btn btn--primary btn--block" id="btnCheckout">Proceder al pago</button>
+    </div>
+  </dialog>
+
+  <!-- Modal Login -->
+  <dialog class="modal modal--auth" id="authModal">
+    <div class="modal__header">
+      <h2 id="authModalTitle">Iniciar sesión</h2>
+      <button type="button" class="modal__close" data-close>&times;</button>
+    </div>
+    <div class="modal__body">
+      <div class="role-selector" id="roleSelector">
+        <button type="button" class="role-btn role-btn--active" data-role="consumidor">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Consumidor
+        </button>
+        <button type="button" class="role-btn" data-role="admin">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Administrador de tienda
+        </button>
+        <button type="button" class="role-btn" data-role="repartidor">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Repartidor
+        </button>
+      </div>
+      <form id="authForm">
+        <label>Correo electrónico<input type="email" name="email" required placeholder="tu@empresa.com"></label>
+        <label>Contraseña<input type="password" name="password" required placeholder="••••••••"></label>
+        <button type="submit" class="btn btn--primary btn--block">Entrar</button>
+      </form>
+      <p class="auth-hint" id="authHint">Compra insumos, gestiona pedidos y cotizaciones.</p>
+      <div class="auth-panel auth-panel--admin" id="adminPanel" hidden>
+        <h3>Panel de administrador</h3>
+        <p>Gestiona inventario, precios y pedidos de tu tienda.</p>
+        <ul class="admin-stats">
+          <li>Pedidos pendientes: <strong>12</strong></li>
+          <li>Productos activos: <strong id="adminProductCount">0</strong></li>
+        </ul>
+      </div>
+      <div class="auth-panel auth-panel--delivery" id="deliveryPanel" hidden>
+        <h3>Panel de repartidor</h3>
+        <p>Entregas asignadas hoy: <strong>5</strong></p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
